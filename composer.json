@@ -1,0 +1,15 @@
+{
+    "name": "chingli/omnipay-heepay",
+    "description": "汇付宝接口",
+    "type": "composer-plugin",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "ChingLi",
+            "email": "lijing920215@msn.com"
+        }
+    ],
+    "require": {
+        "omnipay/omnipay": "^2.3"
+    }
+}
