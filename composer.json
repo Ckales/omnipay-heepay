@@ -1,7 +1,7 @@
 {
     "name": "chingli/omnipay-heepay",
     "description": "汇付宝接口",
-    "type": "composer-plugin",
+    "type": "library",
     "license": "MIT",
     "authors": [
         {
@@ -10,7 +10,7 @@
         }
     ],
     "require": {
-        "omnipay/omnipay": "^2.3"
+        "omnipay/common": "^2.5"
     },
     "autoload": {
         "psr-4": { "Omnipay\\Heepay\\" : "src/" }
