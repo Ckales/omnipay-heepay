@@ -11,5 +11,9 @@
     ],
     "require": {
         "omnipay/omnipay": "^2.3"
-    }
+    },
+    "autoload": {
+        "psr-4": { "Omnipay\\Heepay\\" : "src/" }
+    },
+    "minimum-stability": "dev"
 }
