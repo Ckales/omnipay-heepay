@@ -15,7 +15,7 @@ use Omnipay\Heepay\Crypt3Des;
 use Request;
 class HeepayPurchaseRequest extends AbstractRequest
 {
-    protected $endpoint = 'https://pay.Heepay.com/Api/CardPaySubmitService.aspx';
+    protected $endpoint = 'https://pay.Heepay.com/Api/CardPaySubmitService.aspx';   //汇付宝请求地址
     public function getData()
     {
         $this->validate(
@@ -65,7 +65,7 @@ class HeepayPurchaseRequest extends AbstractRequest
         $signStr  .= '|||' . $key;
         $sign=md5($signStr);
         $data['sign']= $sign;
-        //存储session
+        //暂时将回调校验值存储session，因为在回调时用$this->getPartner()无法获取到值
         session(['agent_id'=>$this->getPartner()]);
         session(['bill_id'=>$this->getOrderId()]);
         return $data;

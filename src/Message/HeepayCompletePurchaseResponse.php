@@ -17,13 +17,13 @@ class HeepayCompletePurchaseResponse extends AbstractResponse
 {
     /**
      * 根据回调数据判断订单状态是否成功
-     * @return bool
+     * @return bool true|false
      * @author 李静
      */
     public function isSuccessful()
     {
         // TODO: Implement isSuccessful() method.
-        //支付成功
+        //根据订单状态判断是否支付成功
         if($this->data['bill_status'] == 1){
             return true;
         }else{
