@@ -15,22 +15,38 @@ use Omnipay\Common\Message\AbstractResponse;
 
 class HeepayCompletePurchaseResponse extends AbstractResponse
 {
+    /**
+     * 根据回调数据判断订单状态是否成功
+     * @return bool
+     * @author 李静
+     */
     public function isSuccessful()
     {
         // TODO: Implement isSuccessful() method.
         //支付成功
-        if($this->data['payResult'] == 1){
+        if($this->data['bill_status'] == 1){
             return true;
         }else{
             return false;
         }
     }
+
+    /**
+     * @return null|string  订单id
+     * @author 李静
+     */
     public function getOrderId()
     {
-        return isset($this->data['orderId'])?$this->data['orderId']:null;
+        return isset($this->data['bill_id'])?$this->data['bill_id']:null;
     }
+
+    /**
+     * 订单状态
+     * @return null|string 订单状态
+     * @author 李静
+     */
     public function getTransactionReference()
     {
-        return isset($this->data['payResult']) ? $this->data['payResult'] : null;
+        return isset($this->data['bill_status']) ? $this->data['bill_status'] : null;
     }
 }
