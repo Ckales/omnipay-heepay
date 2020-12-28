@@ -11,63 +11,85 @@ namespace Omnipay\Heepay;
 
 class Crypt3Des
 {
-    public $key = "";//"JUNNET_123456_123456_COM"; // 这个根据实际情况写
-    function encrypt($input) { // 数据加密
-        $size = @mcrypt_get_block_size ( MCRYPT_3DES, 'ecb' );
-        $input = $this->pkcs5_pad ( $input, $size );
-        $key = str_pad ( $this->key, 24, '0');
-        $td = @mcrypt_module_open ( MCRYPT_3DES, '', 'ecb', '' );
-        $iv = @mcrypt_create_iv ( mcrypt_enc_get_iv_size ( $td ), MCRYPT_RAND );
-        @mcrypt_generic_init ( $td, $key, $iv );
-        $data = @mcrypt_generic ( $td, $input );
-        @mcrypt_generic_deinit ( $td );
-        @mcrypt_module_close ( $td );
-        //$data = base64_encode ( $data );
+    public $key = "";
+
+    /**
+     * 数据加密
+     * @param $input string 需要加密的字符串
+     * @return string
+     */
+    public function encrypt($input)
+    { // 数据加密
+        if (empty($input)) {
+            return null;
+        }
+        $input = $this->pkcs5_pad($input, 8);
+        $key = str_pad($this->key, 24, '0');
+
+        $data = openssl_encrypt($input, "DES-EDE3", $key, OPENSSL_RAW_DATA | OPENSSL_NO_PADDING);
         return $this->strToHex($data);
     }
-    function decrypt($encrypted) { // 数据解密
-        $encrypted = base64_decode ( $encrypted );
-        $key = str_pad ( $this->key, 24, '0' );
-        $td = @mcrypt_module_open ( MCRYPT_3DES, '', 'ecb', '' );
-        $iv = @mcrypt_create_iv ( mcrypt_enc_get_iv_size ( $td ), MCRYPT_RAND );
-        $ks = @mcrypt_enc_get_key_size ( $td );
-        @mcrypt_generic_init ( $td, $key, $iv );
-        $decrypted = mdecrypt_generic ( $td, $encrypted );
-        @mcrypt_generic_deinit ( $td );
-        @mcrypt_module_close ( $td );
-        $y = $this->pkcs5_unpad ( $decrypted );
-        return $y;
+
+    /**
+     * 数据解密
+     * @param $encrypted string 需要解密的字符串
+     * @return string
+     */
+    public function decrypt($encrypted)
+    { // 数据解密
+        if (!$encrypted || empty($encrypted)) {
+            return null;
+        }
+
+        $encrypted = $this->hexToStr($encrypted);
+
+        if (!$encrypted || empty($encrypted)) {
+            return null;
+        }
+
+        $key = str_pad($this->key, 24, '0');
+        $decrypted = openssl_decrypt($encrypted, "DES-EDE3", $key, OPENSSL_RAW_DATA | OPENSSL_NO_PADDING);
+        return $this->pkcs5_unpad($decrypted);
     }
-    function pkcs5_pad($text, $blocksize) {
-        $pad = $blocksize - (strlen ( $text ) % $blocksize);
-        return $text . str_repeat ( chr ( $pad ), $pad );
+
+    function pkcs5_pad($text, $blocksize)
+    {
+        $pad = $blocksize - (strlen($text) % $blocksize);
+        return $text . str_repeat(chr($pad), $pad);
     }
-    function pkcs5_unpad($text) {
-        $pad = ord ( $text {strlen ( $text ) - 1} );
-        if ($pad > strlen ( $text )) {
+
+    function pkcs5_unpad($text)
+    {
+        $pad = ord($text[strlen($text) - 1]);
+        if ($pad > strlen($text)) {
             return false;
         }
-        if (strspn ( $text, chr ( $pad ), strlen ( $text ) - $pad ) != $pad) {
+        if (strspn($text, chr($pad), strlen($text) - $pad) != $pad) {
             return false;
         }
-        return substr ( $text, 0, - 1 * $pad );
+        return substr($text, 0, -1 * $pad);
     }
-    function PaddingPKCS7($data) {
-        $block_size = @mcrypt_get_block_size ( MCRYPT_3DES, MCRYPT_MODE_CBC );
-        $padding_char = $block_size - (strlen ( $data ) % $block_size);
-        $data .= str_repeat ( chr ( $padding_char ), $padding_char );
-        return $data;
-    }
-    function strToHex($string){
-        $hex="";
-        for($i=0;$i<strlen($string);$i++)  {
-            $iHex=dechex(ord($string[$i]));
-            if(strlen($iHex)==1)
-                $hex .='0' . $iHex;
+
+    function strToHex($string)
+    {
+        $hex = "";
+        for ($i = 0; $i < strlen($string); $i++) {
+            $iHex = dechex(ord($string[$i]));
+            if (strlen($iHex) == 1)
+                $hex .= '0' . $iHex;
             else
                 $hex .= $iHex;
         }
-        $hex=strtoupper($hex);
-        return   $hex;
+        $hex = strtoupper($hex);
+        return $hex;
+    }
+
+    function hexToStr($hex)
+    {
+        $string = "";
+        for ($i = 0; $i < strlen($hex) - 1; $i += 2) {
+            $string .= chr(hexdec($hex[$i] . $hex[$i + 1]));
+        }
+        return $string;
     }
 }
