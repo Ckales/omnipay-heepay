@@ -26,22 +26,21 @@ class HeepayPurchaseRequest extends AbstractRequest
             'amount',
             'cardType'
         );
-        $data = array (
-            'agent_id'=> $this->getPartner(),
-            'bill_id'=> $this->getOrderId(),
-            'bill_time'=>date('YmdHis', time()),
-            'card_type'=>$this->getCardType(),
-            'pay_amt'=>$this->getAmount(),
+        $data = [
+            'agent_id'      => $this->getPartner(),
+            'bill_id'       => $this->getOrderId(),
+            'bill_time'     =>date('YmdHis', time()),
+            'card_type'     =>$this->getCardType(),
+            'pay_amt'       =>$this->getAmount(),
             'qq'           => '',
-            'email'     => '',
-            'client_ip'=>Request::getClientIp(),
-            'notify_url'           => $this->getNotifyurl(),
-            'desc'            => $this->getDesc(),
-            'ext_param'        => '',
-            'time_stamp'=>date('YmdHis', time()),
-        );
+            'email'         => '',
+            'client_ip'     =>Request::getClientIp(),
+            'notify_url'    => $this->getNotifyurl(),
+            'desc'          => $this->getDesc(),
+            'ext_param'     => '',
+            'time_stamp'    =>date('YmdHis', time()),
+        ];
         //过滤数组为空值
-        //$data = array_filter($data);
         $key=$this->getKey();
         $deskey= $this->getDeskey();
         $carnum=$this->getCardNum();

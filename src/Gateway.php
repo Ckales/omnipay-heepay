@@ -24,16 +24,16 @@ class Gateway extends AbstractGateway
         return 'Heepay';
     }
     public function getDefaultParameters(){
-        return array(
-            'desc'=>'',
-            'key'=>'',
-            'deskey'=>'',
-            'partner'=>'',      //汇付宝注册的账户数字ID
-            'notifyurl'=>'',
-            'qq'=>'',
-            'email'=>'',
-            'ext_param'=>'',
-        );
+        return [
+            'desc'      => '',
+            'key'       => '',
+            'deskey'    => '',
+            'partner'   => '',      //汇付宝注册的账户数字ID
+            'notifyurl' => '',
+            'qq'        => '',
+            'email'     => '',
+            'ext_param' => '',
+        ];
     }
     public function setKey($value){
         return $this->setParameter('key',$value);
