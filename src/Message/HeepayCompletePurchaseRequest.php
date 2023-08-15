@@ -29,7 +29,6 @@ class HeepayCompletePurchaseRequest extends HeepayPurchaseRequest
         if ($request_params['agent_id'] !== session('agent_id') && $request_params['bill_id'] !== session('bill_id')) {
             throw new InvalidResponseException('Invalid md5String');
         }
-        //return $this->httpRequest->request->all();
         return $_REQUEST;
     }
 

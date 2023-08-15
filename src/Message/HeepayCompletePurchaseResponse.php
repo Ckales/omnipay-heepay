@@ -37,7 +37,7 @@ class HeepayCompletePurchaseResponse extends AbstractResponse
      */
     public function getOrderId()
     {
-        return isset($this->data['bill_id'])?$this->data['bill_id']:null;
+        return $this->data['bill_id'] ?? null;
     }
 
     /**
@@ -47,6 +47,6 @@ class HeepayCompletePurchaseResponse extends AbstractResponse
      */
     public function getTransactionReference()
     {
-        return isset($this->data['bill_status']) ? $this->data['bill_status'] : null;
+        return $this->data['bill_status'] ?? null;
     }
 }
