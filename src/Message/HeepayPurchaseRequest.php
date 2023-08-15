@@ -92,12 +92,33 @@ class HeepayPurchaseRequest extends AbstractRequest
         $reponse = $request->send();
         return $this->response = new HeepayResponse($this, $reponse->getBody(true),$this->getKey());
     }
+
+    /**
+     * 设置订单号
+     * @param $value
+     * @return mixed
+     * @author ChingLi
+     */
     public function setOrderId($value){
         return $this->setParameter('orderId',$value);
     }
+
+    /**
+     * 设置订单时间
+     * @param $value
+     * @return mixed
+     * @author 李静
+     */
     public function setOrderTime($value){
         return $this->setParameter('orderTime',$value);
     }
+
+    /**
+     * 设置卡号
+     * @param $value
+     * @return mixed
+     * @author 李静
+     */
     public function setCardNum($value){
         return $this->setParameter('cardNum',$value);
     }
