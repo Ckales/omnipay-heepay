@@ -4,7 +4,7 @@
 # 安装
 
 ```php
-composer require chingli/omnipay-heepay
+composer require ckales/omnipay-heepay
 ```
 
 # 使用
