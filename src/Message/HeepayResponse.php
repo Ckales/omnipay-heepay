@@ -60,7 +60,7 @@ class HeepayResponse extends AbstractResponse
                 $_status = '传入参数有误';
                 break;
             case '2':
-                $_status = '代理商ID错误 或 未开通该服务';
+                $_status = '代理商ID错误或未开通该服务';
                 break;
             case '3':
                 $_status = 'IP验证错误';
@@ -90,7 +90,7 @@ class HeepayResponse extends AbstractResponse
                 $_status = '卡号卡密格式加密错误';
                 break;
             case '98':
-                $_status = '接口维中';
+                $_status = '接口维护中';
                 break;
             default:
                 $_status = '系统错误,未知';

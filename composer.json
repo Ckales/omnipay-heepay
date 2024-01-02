@@ -1,12 +1,12 @@
 {
-    "name": "chingli/omnipay-heepay",
+    "name": "ckales/omnipay-heepay",
     "description": "汇付宝接口",
     "type": "library",
     "license": "MIT",
     "authors": [
         {
-            "name": "ChingLi",
-            "email": "chinglinet@msn.com"
+            "name": "Ckales",
+            "email": "41631@qq.com"
         }
     ],
     "require": {

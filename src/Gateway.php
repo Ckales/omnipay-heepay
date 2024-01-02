@@ -1,8 +1,5 @@
 <?php
 /**
- * Created by PhpStorm.
- * file: Gateway.php
- * project: omnipay-heepay
  * User: ChingLi
  * Date: 2016/12/19
  * Time: 16:47
@@ -123,6 +120,11 @@ class Gateway extends AbstractGateway
         return $this->getParameter('notifyurl');
     }
 
+    /**
+     * 解析请求
+     * @param array $parameters
+     * @return mixed
+     */
     public function purchase(array $parameters = array()){
         return $this->createRequest('\Omnipay\Heepay\Message\HeepayPurchaseRequest', $parameters);
     }
